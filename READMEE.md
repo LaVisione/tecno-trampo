@@ -1,1 +1,1 @@
-"LOL" 
+escutei que a mariana ta puta com o jão e o bigatão, realmente dois macacos
