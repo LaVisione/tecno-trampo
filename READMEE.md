@@ -1,1 +1,1 @@
-escutei que a mariana ta puta com o jão e o bigatão, realmente 
+seis tão loucos bando de povo feio do meu lado
