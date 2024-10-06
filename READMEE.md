@@ -1,1 +1,0 @@
-seis tão loucos bando de povo feio do meu lado

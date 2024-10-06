@@ -1,2 +1,0 @@
-# tecno-trampo
-grupo ganhador 
