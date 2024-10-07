@@ -40,6 +40,7 @@ por essa ferramenta.
 3. Requisitos
 
 Os bancos nos quais os serviços a serem monitorados devem ser:
+
 ● 001 - Banco do Brasil (v2)
 
 ● 341 - Itaú (v2 e Francesa)
