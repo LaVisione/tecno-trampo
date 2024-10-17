@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize'; 
-import { sequelize } from '../src/database/database';
-import { Bancos } from '../models/Bancos';
+import { sequelize } from '../database/database';
+import { Bancos } from './Bancos';
 
 
 export class Registros extends Model{
@@ -52,4 +52,6 @@ Registros.init({
     sequelize,           
     modelName: 'Registros',
     tableName: 'registros',
+    createdAt: true,
+    updatedAt: false,
 })

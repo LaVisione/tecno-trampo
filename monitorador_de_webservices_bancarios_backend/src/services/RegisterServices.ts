@@ -1,4 +1,4 @@
-import{ Registros } from '../../models/Registros';
+import{ Registros } from '../models/Registros';
 
 export class RegisterServices {
 
