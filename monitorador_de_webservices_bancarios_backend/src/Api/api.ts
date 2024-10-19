@@ -77,8 +77,8 @@ app.post('/api/v1/boletos/lote', async (req: Request, res: Response) => {
         console.log(response);
 
         const status = response.status;
-        const nomeBanco = 'Banco do Brasil';
-        const versao = response.data;
+        const nome = 'Banco do Brasil';
+        const versao = 'v2';
 
         const end = Date.now();
 
@@ -86,11 +86,13 @@ app.post('/api/v1/boletos/lote', async (req: Request, res: Response) => {
 
         console.log(`\nTempo da requisição: ${duration} ms`);
 
-        service.save(response, false, duration);
-
+        
+        
         res.status(200).send('OK');
 
-        const banco = Bancos.create({ status, nomeBanco, versao })
+        const banco = Bancos.create({ status, nome, versao })
+
+        service.save(response, false, duration);
 
     } catch (error) {
         const end = Date.now();

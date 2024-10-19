@@ -7,7 +7,6 @@ export class Registros extends Model{
     public id!: number;
     public id_banco!: number;
     public status_code!: string;
-    public create_date!: Date;
     public mensagem!: string;
     public tempo_resposta!: number;
     public jsonb_response!: object;
@@ -31,13 +30,9 @@ Registros.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    create_date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    },
     mensagem: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     tempo_resposta: {
         type: DataTypes.DOUBLE,
