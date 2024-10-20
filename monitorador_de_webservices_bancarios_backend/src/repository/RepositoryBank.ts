@@ -28,7 +28,7 @@ export class RepositoryBank{
 
     public async updateById(id: number, status: string) {
         try {
-            console.log('NA HORA DE ATUALIZAR STATUS DO BANCO',id,status);
+            console.log("\nCHEGOU NA BANK-REPOSITORY");
             const [updatedRows] = await Bancos.update(
                 { status },           
                 { where: { id } }    

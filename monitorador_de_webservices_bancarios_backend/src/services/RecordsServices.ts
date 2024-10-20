@@ -14,16 +14,16 @@ export class RecordsServices {
         };
 
         if (isWithErros == true) {
-            console.log("\nCHEGOU NA SERVICE ATRAVES DE UM ERRO");
+            console.log("\nCHEGOU NA RECORDS-SERVICE ATRAVES DE UM ERRO");
             this.saveWithErrors(response, isWithErros, duration);
             return;
         }
 
-        console.log("\nCHEGOU NA SERVICE SEM ERRO");
+        console.log("\nCHEGOU NA RECORDS-SERVICE SEM ERRO");
 
         console.log('\nStatus Code:', response.status);
         console.log('\nData:', response.headers.date);
-        console.log('\nMensagem: SUCESSO!'); // por ser status 200 eu posso apenas dizer que deu tudo certo ou preciso do valor real 
+        console.log('\nMensagem: SUCESSO!');
         console.log('\nTempo de Resposta (ms):', duration); 
         console.log('\nJSONB:', responseData);
         

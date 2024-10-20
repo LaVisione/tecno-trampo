@@ -4,6 +4,7 @@ export class RepositoryRecords {
 
     public async saveRecords(id_banco: number, status_code: string, mensagem: string, tempo_resposta: number, jsonb_response: object) {
         try {
+            console.log("\nCHEGOU NA RECORDS-REPOSITORY");
             await Registros.create({
                 id_banco,
                 status_code,
