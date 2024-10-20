@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import {sequelize} from '../database/database';
+import { sequelize } from '../database/database';
 
 export class Bancos extends Model {
     public id!: number;
@@ -12,11 +12,12 @@ Bancos.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
+        allowNull: true,
         primaryKey: true,
     },
     status: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     nome: {
         type: DataTypes.STRING, 
@@ -31,6 +32,6 @@ Bancos.init({
     sequelize,           
     modelName: 'Bancos',
     tableName: 'bancos',
-    createdAt: true,
+    createdAt: false,
     updatedAt: false,
 });

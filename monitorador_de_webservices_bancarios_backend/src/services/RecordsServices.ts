@@ -1,10 +1,18 @@
-import{ Registros } from '../models/Registros';
+import { RepositoryRecords } from '../repository/RepositoryRecords';
 
-export class RegisterServices {
+const repository = new RepositoryRecords();
+
+
+export class RecordsServices {
 
     public save(response: any, isWithErros: boolean, duration: number): void {
         this.isNull(response);
-       
+        
+        const responseData = {
+            headers: response.headers,
+            data: response.data,  
+        };
+
         if (isWithErros == true) {
             console.log("\nCHEGOU NA SERVICE ATRAVES DE UM ERRO");
             this.saveWithErrors(response, isWithErros, duration);
@@ -17,7 +25,9 @@ export class RegisterServices {
         console.log('\nData:', response.headers.date);
         console.log('\nMensagem: SUCESSO!'); // por ser status 200 eu posso apenas dizer que deu tudo certo ou preciso do valor real 
         console.log('\nTempo de Resposta (ms):', duration); 
-        console.log('\nJSONB:', JSON.stringify(response.data, null, 2));
+        console.log('\nJSONB:', responseData);
+        
+        repository.saveRecords(1,response.status, "Sucesso!", duration, responseData);
         return;
     };
 
@@ -28,12 +38,13 @@ export class RegisterServices {
     }   
 
     private saveWithErrors(response: any, isWithErros: boolean, duration: number): void {
-        console.log('\nResponse\n\n:',response);
         console.log('\nStatus Code:',response.status);
         console.log('\nData:', response.response.headers.date);
         console.log('\nMensagem:',response.message); 
         console.log('\nTempo de Resposta (ms):', duration); 
-        console.log('\nJSONB:', JSON.stringify(response.response.data, null, 2));
+        console.log('\nJSONB:', response.response.data);
+
+        repository.saveRecords(1,response.status, response.message, duration, response.response.data);
     }
     
 }

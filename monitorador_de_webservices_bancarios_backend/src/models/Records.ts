@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize'; 
 import { sequelize } from '../database/database';
-import { Bancos } from './Bancos';
+import { Bancos } from './Bank';
 
 
 export class Registros extends Model{
@@ -40,7 +40,7 @@ Registros.init({
     },
     jsonb_response: {
         type: DataTypes.JSONB,
-        allowNull: false,
+        allowNull: true,
     }
 },
 {

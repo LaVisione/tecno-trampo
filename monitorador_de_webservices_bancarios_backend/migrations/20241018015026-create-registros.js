@@ -31,7 +31,7 @@ module.exports = {
       },
       jsonb_response: {
         type: Sequelize.JSON,
-        allowNull: false,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
