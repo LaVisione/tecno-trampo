@@ -4,7 +4,8 @@ const repository = new RepositoryBank();
 
 export class BankServices {
     
-    public updateStatus(id: number, status: string) {
-        repository.updateById(id,status);
+    public updateStatus(id: number, status: object[]) {
+        console.log("DENTRO DO UPDADEBANK", status)
+        //repository.updateById(id,status);
     }
 }
