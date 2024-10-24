@@ -4,6 +4,7 @@ import { RepositoryBank } from '../repository/RepositoryBank';
 import { RecordsServices } from '../services/RecordsServices';
 import { BankServices } from '../services/BankServices';
 import axios from 'axios'
+import cron from 'node-cron';
 
 const app = express();
 app.use(express.json());
@@ -12,7 +13,7 @@ const bankServices = new BankServices();
 
 const url = 'http://homologacao.plugboleto.com.br/api/v1/boletos/lote';
 const headers = {
-    'cnpj-sh': '1206762500015',
+    'cnpj-sh': '12067625000150',
     'token-sh': 'a60c428fbfcafa73bc8eda5e9b7fee4e',
     'cnpj-cedente': '26775488000112',
     'Content-Type': 'application/json',
@@ -62,10 +63,13 @@ sequelize
         console.error('Erro ao conectar ao banco de dados:', err);
     });
 
+//Iniciar bancos
 sequelize.sync().then(() => {
     RepositoryBank.initBanks();
     console.log('Bancos inseridos/verificados.');
 });
+
+//teste via postman:
 
 app.post('/api/v1/boletos/lote', async (req: Request, res: Response) => {
     const url = 'http://homologacao.plugboleto.com.br/api/v1/boletos/lote';
@@ -149,6 +153,21 @@ app.post('/api/v1/boletos/lote', async (req: Request, res: Response) => {
 
 });
 
+app.get('/api/v1/boletos/lote',async(req: Request, res: Response) =>{
+    const { id_banco } = req.query; // id_banco é um string, busque no postman passando id na URL
+
+    try {
+        const registros = await recordsServices.queryDatabase(id_banco as string); 
+        res.status(200).json(registros);
+        console.log('Registros retornados:', registros);
+    } catch (error) {
+        console.error('Erro ao buscar registros:', error);
+        res.status(500).send('Erro ao buscar registros');
+    }
+});
+
+//------------------------------
+
 const sendApi = async () => {
     let start: number = 0;
 
@@ -166,7 +185,6 @@ const sendApi = async () => {
         recordsServices.save(response, false, duration);
 
         bankServices.updateStatus(1, response.status.toString());
-
     } catch (error) {
         const end = Date.now();
         const duration = end - start;
@@ -185,6 +203,11 @@ const sendApi = async () => {
 };
 
 setInterval(sendApi, interval);
+
+cron.schedule('00 20 * * *', () => {
+    recordsServices.callFunction();
+    console.log('Limpeza de registros antigos realizada.');
+});
 
 app.listen(port, () => {
     console.log(`\nServer is running on port ${port}`);

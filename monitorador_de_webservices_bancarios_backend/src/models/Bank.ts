@@ -1,14 +1,14 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../database/database';
 
-export class Bancos extends Model {
+export class Bank extends Model {
     public id!: number;
     public status!: string;
     public nome!: string;
     public versao!: string;
 }
 
-Bancos.init({
+Bank.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

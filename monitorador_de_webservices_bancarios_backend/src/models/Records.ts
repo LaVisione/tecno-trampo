@@ -1,9 +1,9 @@
 import { DataTypes, Model } from 'sequelize'; 
 import { sequelize } from '../database/database';
-import { Bancos } from './Bank';
+import { Bank } from './Bank';
 
 
-export class Registros extends Model{
+export class Records extends Model{
     public id!: number;
     public id_banco!: number;
     public status_code!: string;
@@ -12,7 +12,7 @@ export class Registros extends Model{
     public jsonb_response!: object;
 }
 
-Registros.init({
+Records.init({
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -22,7 +22,7 @@ Registros.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Bancos,
+            model: Bank,
             key: 'id',
         }
     },

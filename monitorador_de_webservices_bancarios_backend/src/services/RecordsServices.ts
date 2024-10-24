@@ -1,5 +1,6 @@
 import { RepositoryRecords } from '../repository/RepositoryRecords';
 
+
 const repository = new RepositoryRecords();
 
 
@@ -47,5 +48,30 @@ export class RecordsServices {
         repository.saveRecords(1,response.status, response.message, duration, response.response.data);
     }
     
+    public callFunction(){
+        repository.clearDatabase();
+    }
+
+    private getDateCondition(interval: string) {
+        const now = new Date();
+        switch (interval) {
+            case '24h':
+                now.setHours(now.getHours() - 24);
+                break;
+            case '7d':
+                now.setDate(now.getDate() - 7);
+                break;
+            case '30d':
+                now.setDate(now.getDate() - 30);
+                break;
+            default:
+                throw new Error('Intervalo inválido');
+        }
+        return now;
+    }
+
+    public async queryDatabase(id_banco: string) {
+        return await repository.getAllByBankId(id_banco);
+    }
 }
 

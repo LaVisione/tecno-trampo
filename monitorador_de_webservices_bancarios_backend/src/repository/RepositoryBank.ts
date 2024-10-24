@@ -1,4 +1,4 @@
-import { Bancos } from "../models/Bank";
+import { Bank } from "../models/Bank";
 
 export class RepositoryBank{
 
@@ -19,7 +19,7 @@ export class RepositoryBank{
     
     
         for (const banco of bancos) {
-            await Bancos.findOrCreate({
+            await Bank.findOrCreate({
                 where: { nome: banco.nome, versao: banco.versao },
                 defaults: { status: null }
             });
@@ -29,9 +29,9 @@ export class RepositoryBank{
     public async updateById(id: number, status: string) {
         try {
             console.log("\nCHEGOU NA BANK-REPOSITORY");
-            const [updatedRows] = await Bancos.update(
+            const [updatedRows] = await Bank.update(
                 { status },           
-                { where: { id } }    
+                { where: { id } }
             );
         } catch (error) {
             console.error(`Erro ao atualizar o banco com ID ${id}:`, error);
@@ -39,4 +39,18 @@ export class RepositoryBank{
         }
     }
 
+    /*public  async getAllOrderedById() {
+        try {
+            const bancos = await Bank.findAll({
+                order: [
+                    ['id', 'ASC']  // Ordena pelo id em ordem crescente
+                ]
+            });
+            return bancos;
+        } catch (error) {
+            console.error("Erro ao buscar bancos:", error);
+            throw new Error('Erro ao buscar bancos ordenados, valide os logs');
+        }
+    }*/
+    
 }
