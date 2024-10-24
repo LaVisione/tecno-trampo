@@ -213,7 +213,11 @@ usuário encontrar o monitor no Google
 Membros do projeto:
 
 André de Oliveira Fazion RA: 108052-2023
+
 Dyames Eduardo da Silva RA: 92843-2022
+
 Gustavo Henrique Bigatão RA: 97359-2022
+
 João Paulo Garcia Barros RA:112797-2023
+
 João Pedro Ricardo - RA: 102742-2023
