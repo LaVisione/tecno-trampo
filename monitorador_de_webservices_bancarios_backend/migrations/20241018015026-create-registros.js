@@ -29,6 +29,10 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: false,
       },
+      isError: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
       jsonb_response: {
         type: Sequelize.JSON,
         allowNull: true,

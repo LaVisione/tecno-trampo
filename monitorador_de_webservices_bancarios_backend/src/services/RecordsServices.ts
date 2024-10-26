@@ -1,4 +1,3 @@
-import e from 'express';
 import { RepositoryRecords } from '../repository/RepositoryRecords';
 
 const { format } = require('date-fns');
@@ -29,9 +28,9 @@ export class RecordsServices {
         console.log('\nData:', response.headers.date);
         console.log('\nMensagem: SUCESSO!');
         console.log('\nTempo de Resposta (ms):', duration);
-        console.log('\nJSONB:', responseData);
+        //console.log('\nJSONB:', responseData);
 
-        repository.saveRecords(1, response.status, "Sucesso!", duration, responseData);
+        repository.saveRecords(1, response.status, "Sucesso!", duration, responseData, false);
         return;
     };
 
@@ -46,16 +45,26 @@ export class RecordsServices {
         console.log('\nData:', response.response.headers.date);
         console.log('\nMensagem:', response.message);
         console.log('\nTempo de Resposta (ms):', duration);
-        console.log('\nJSONB:', response.response.data);
+        //console.log('\nJSONB:', response.response.data);
         
-        repository.saveRecords(1, response.status, response.message, duration, response.response.data);
+        repository.saveRecords(1, response.status, response.message, duration, response.response.data, true);
     }
 
     public callFunction() {
         repository.clearDatabase();
     }
 
-    public async queryDatabase(id_banco: string, startDate: object, endDate: object) {
+    public async getRecordsError(id_banco: string) {
+        let  records = await repository.findRecordsError(id_banco);
+    
+        records.forEach(record => {
+            record.dataValues.createdAt = this.dateFormattedBr(record.dataValues.createdAt);
+        });
+
+        return records;
+    }
+
+    public async findRecordsWithParams(id_banco: string, startDate: object, endDate: object) {
         return await repository.queryDatabaseFindRecords(id_banco, startDate, endDate);
     }
 
@@ -85,6 +94,10 @@ export class RecordsServices {
 
     private isValidString(str: string | null | undefined): boolean {
         return str != null && str !== ""; 
+    }
+
+    private dateFormattedBr(date: Date) {
+        return format(date, 'dd-MM-yyyy HH:mm:ss');
     }
 
     private dateFormatted(date: Date) {

@@ -9,6 +9,7 @@ export class Records extends Model{
     public status_code!: string;
     public mensagem!: string;
     public tempo_resposta!: number;
+    public isError!: boolean;
     public jsonb_response!: object;
 }
 
@@ -36,6 +37,10 @@ Records.init({
     },
     tempo_resposta: {
         type: DataTypes.DOUBLE,
+        allowNull: false,
+    },
+    isError: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
     },
     jsonb_response: {

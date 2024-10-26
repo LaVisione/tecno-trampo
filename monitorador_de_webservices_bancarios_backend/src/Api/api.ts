@@ -160,13 +160,26 @@ app.get('/api/v1/boletos/lote/:id_banco', async(req: Request, res: Response) =>{
 
     const { startDate, endDate } = recordsServices.convertToDates(data_inicio as string, data_fim as string);
 
-    console.log("\nSTART DATE NA PUSSY:", startDate);
-    console.log("\nEND DATE NA PUSSY:", endDate);
+    console.log("\nSTART DATE:", startDate);
+    console.log("\nEND DATE:", endDate);
 
     try {
-        const records = await recordsServices.queryDatabase(id_banco, startDate, endDate);
+        const records = await recordsServices.findRecordsWithParams(id_banco, startDate, endDate);
 
         res.status(200).json({ records });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro no servidor', error });
+    }
+    
+});
+
+app.get('/api/v1/boletos/lote/:id_banco/error', async(req: Request, res: Response) =>{
+    const { id_banco } = req.params; 
+
+    try {
+        const records = await recordsServices.getRecordsError(id_banco);
+        res.status(200).json({ records });
+        console.log('REGISTRO DATA', records);
     } catch (error) {
         res.status(500).json({ message: 'Erro no servidor', error });
     }

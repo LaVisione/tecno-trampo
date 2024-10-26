@@ -4,7 +4,7 @@ import { Op } from 'sequelize';
 
 export class RepositoryRecords {
 
-    public async saveRecords(id_banco: number, status_code: string, mensagem: string, tempo_resposta: number, jsonb_response: object) {
+    public async saveRecords(id_banco: number, status_code: string, mensagem: string, tempo_resposta: number, jsonb_response: object, isError: boolean) {
         try {
             console.log("\nCHEGOU NA RECORDS-REPOSITORY");
             await Records.create({
@@ -12,7 +12,8 @@ export class RepositoryRecords {
                 status_code,
                 mensagem,
                 tempo_resposta,
-                jsonb_response
+                jsonb_response,
+                isError
             });
         } catch (error) {
             console.error('Erro ao salvar o registro:', error);
@@ -43,6 +44,18 @@ export class RepositoryRecords {
                     [Op.between]: [startDate, endDate],
                 }
             }
+        });
+    }
+
+    public async findRecordsError(id_banco: string) {
+        return await Records.findAll({
+            attributes: ['status_code', 'mensagem', 'createdAt'],
+            where: {
+                id_banco: id_banco,
+                isError: true
+            },
+            order: [['createdAt', 'DESC']], 
+            limit: 10 
         });
     }
 
