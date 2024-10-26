@@ -12,8 +12,8 @@ module.exports = {
       id_banco: {
         allowNull: false,
         references: {
-            model: Bancos,
-            key: 'id',
+          model: Bancos,
+          key: 'id',
         },
         type: Sequelize.INTEGER
       },
@@ -32,10 +32,6 @@ module.exports = {
       jsonb_response: {
         type: Sequelize.JSON,
         allowNull: true,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

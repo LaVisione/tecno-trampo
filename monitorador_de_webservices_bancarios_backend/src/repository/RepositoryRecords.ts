@@ -1,5 +1,6 @@
 import { Records } from "../models/Records";
 import { Op } from 'sequelize';
+//import dayjs from 'dayjs';
 
 export class RepositoryRecords {
 
@@ -34,11 +35,14 @@ export class RepositoryRecords {
         });
     }
 
-    async getAllByBankId(id_banco: string) {
+    public async queryDatabaseFindRecords(id_banco: string, startDate: object, endDate: object) {
         return await Records.findAll({
             where: {
                 id_banco: id_banco,
-            },
+                createdAt: {
+                    [Op.between]: [startDate, endDate],
+                }
+            }
         });
     }
 

@@ -1,6 +1,9 @@
+import e from 'express';
 import { RepositoryRecords } from '../repository/RepositoryRecords';
 
+const { format } = require('date-fns');
 
+const now = new Date();   
 const repository = new RepositoryRecords();
 
 
@@ -8,10 +11,10 @@ export class RecordsServices {
 
     public save(response: any, isWithErros: boolean, duration: number): void {
         this.isNull(response);
-        
+
         const responseData = {
             headers: response.headers,
-            data: response.data,  
+            data: response.data,
         };
 
         if (isWithErros == true) {
@@ -25,53 +28,73 @@ export class RecordsServices {
         console.log('\nStatus Code:', response.status);
         console.log('\nData:', response.headers.date);
         console.log('\nMensagem: SUCESSO!');
-        console.log('\nTempo de Resposta (ms):', duration); 
+        console.log('\nTempo de Resposta (ms):', duration);
         console.log('\nJSONB:', responseData);
-        
-        repository.saveRecords(1,response.status, "Sucesso!", duration, responseData);
+
+        repository.saveRecords(1, response.status, "Sucesso!", duration, responseData);
         return;
     };
 
-    private isNull(response: any): void{
+    private isNull(response: any): void {
         if (response == null) {
             return;
         }
-    }   
+    }
 
     private saveWithErrors(response: any, isWithErros: boolean, duration: number): void {
-        console.log('\nStatus Code:',response.status);
+        console.log('\nStatus Code:', response.status);
         console.log('\nData:', response.response.headers.date);
-        console.log('\nMensagem:',response.message); 
-        console.log('\nTempo de Resposta (ms):', duration); 
+        console.log('\nMensagem:', response.message);
+        console.log('\nTempo de Resposta (ms):', duration);
         console.log('\nJSONB:', response.response.data);
-
-        repository.saveRecords(1,response.status, response.message, duration, response.response.data);
+        
+        repository.saveRecords(1, response.status, response.message, duration, response.response.data);
     }
-    
-    public callFunction(){
+
+    public callFunction() {
         repository.clearDatabase();
     }
 
-    private getDateCondition(interval: string) {
-        const now = new Date();
-        switch (interval) {
-            case '24h':
-                now.setHours(now.getHours() - 24);
-                break;
-            case '7d':
-                now.setDate(now.getDate() - 7);
-                break;
-            case '30d':
-                now.setDate(now.getDate() - 30);
-                break;
-            default:
-                throw new Error('Intervalo inválido');
-        }
-        return now;
+    public async queryDatabase(id_banco: string, startDate: object, endDate: object) {
+        return await repository.queryDatabaseFindRecords(id_banco, startDate, endDate);
     }
 
-    public async queryDatabase(id_banco: string) {
-        return await repository.getAllByBankId(id_banco);
+    public convertToDates(start_date: string, end_date: string) {
+        if (!this.isValidString(start_date) && !this.isValidString(end_date)) {
+            return this.setDefaultDates();
+        }
+
+        const startDate = this.parseDate(start_date, 0);
+        const endDate = this.parseDate(end_date, 23, 59, 59);
+        
+        return { startDate, endDate };
+    }
+
+    private setDefaultDates() {
+        let startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0); 
+        let endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+
+        startDate = this.dateFormatted(startDate);
+        endDate = this.dateFormatted(endDate);
+
+        return {
+            startDate: startDate,
+            endDate: endDate
+        };
+    }
+
+    private isValidString(str: string | null | undefined): boolean {
+        return str != null && str !== ""; 
+    }
+
+    private dateFormatted(date: Date) {
+        return format(date, 'yyyy-MM-dd HH:mm:ss');
+    }
+
+    private parseDate(dateString: string, hours: number = 0, minutes: number = 0, seconds: number = 0): Date {
+        const [day, month, year] = dateString.split('/').map(Number);
+        const date = new Date(year, month - 1, day, hours, minutes, seconds);
+        return this.dateFormatted(date);
     }
 }
 

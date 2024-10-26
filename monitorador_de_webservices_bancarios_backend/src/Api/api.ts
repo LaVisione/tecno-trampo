@@ -8,6 +8,7 @@ import cron from 'node-cron';
 
 const app = express();
 app.use(express.json());
+
 const recordsServices = new RecordsServices();
 const bankServices = new BankServices();
 
@@ -153,17 +154,23 @@ app.post('/api/v1/boletos/lote', async (req: Request, res: Response) => {
 
 });
 
-app.get('/api/v1/boletos/lote',async(req: Request, res: Response) =>{
-    const { id_banco } = req.query; // id_banco é um string, busque no postman passando id na URL
+app.get('/api/v1/boletos/lote/:id_banco', async(req: Request, res: Response) =>{
+    const { id_banco } = req.params; 
+    const { data_inicio, data_fim } = req.query;
+
+    const { startDate, endDate } = recordsServices.convertToDates(data_inicio as string, data_fim as string);
+
+    console.log("\nSTART DATE NA PUSSY:", startDate);
+    console.log("\nEND DATE NA PUSSY:", endDate);
 
     try {
-        const registros = await recordsServices.queryDatabase(id_banco as string); 
-        res.status(200).json(registros);
-        console.log('Registros retornados:', registros);
+        const records = await recordsServices.queryDatabase(id_banco, startDate, endDate);
+
+        res.status(200).json({ records });
     } catch (error) {
-        console.error('Erro ao buscar registros:', error);
-        res.status(500).send('Erro ao buscar registros');
+        res.status(500).json({ message: 'Erro no servidor', error });
     }
+    
 });
 
 //------------------------------
