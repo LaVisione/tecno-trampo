@@ -38,19 +38,5 @@ export class RepositoryBank{
             throw new Error('Erro ao realizar atualização do status do Banco, valide os logs');
         }
     }
-
-    /*public  async getAllOrderedById() {
-        try {
-            const bancos = await Bank.findAll({
-                order: [
-                    ['id', 'ASC']  // Ordena pelo id em ordem crescente
-                ]
-            });
-            return bancos;
-        } catch (error) {
-            console.error("Erro ao buscar bancos:", error);
-            throw new Error('Erro ao buscar bancos ordenados, valide os logs');
-        }
-    }*/
     
 }
