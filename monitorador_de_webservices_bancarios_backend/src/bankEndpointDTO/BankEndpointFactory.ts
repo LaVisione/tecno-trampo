@@ -42,11 +42,19 @@ export class BankEndpointFactory {
     "TituloSacadorAvalistaBairro": "JDestes"
   }];
 
-  private static specificFieldBody: { [id: number]: { CedenteContaNumero: string, CedenteContaNumeroDV: string, CedenteConvenioNumero: string, CedenteContaCodigoBanco: string } } = {
+  private static specificFieldBody: { [id: number]: Partial<{ 
+    CedenteContaNumero: string, 
+    CedenteContaNumeroDV: string, 
+    CedenteConvenioNumero: string, 
+    CedenteContaCodigoBanco: string,
+    TituloNossoNumero: string 
+    
+  }> } = {
     1: { CedenteContaNumero: "123456", CedenteContaNumeroDV: "7", CedenteConvenioNumero: "9845623", CedenteContaCodigoBanco: "001" },
-    6: { CedenteContaNumero: "13141", CedenteContaNumeroDV: "6", CedenteConvenioNumero: "13141", CedenteContaCodigoBanco: "748" },
-
+    6: { CedenteContaNumero: "13141", CedenteContaNumeroDV: "6", CedenteConvenioNumero: "13141", CedenteContaCodigoBanco: "748" , TituloNossoNumero: "12345"},
+    
   };
+  
 
   public static buildBankEndpoint(id: number): BankEndpoint {
     const specificFields = this.specificFieldBody[id];

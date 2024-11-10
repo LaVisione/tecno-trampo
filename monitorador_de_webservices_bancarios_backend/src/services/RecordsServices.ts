@@ -8,7 +8,7 @@ const repository = new RepositoryRecords();
 
 export class RecordsServices {
 
-    public save(response: any, isWithErros: boolean, duration: number): void {
+    public save(id: number, response: any, isWithErros: boolean, duration: number): void {
         this.isNull(response);
 
         const responseData = {
@@ -18,7 +18,7 @@ export class RecordsServices {
 
         if (isWithErros == true) {
             console.log("\nCHEGOU NA RECORDS-SERVICE ATRAVES DE UM ERRO");
-            this.saveWithErrors(response, isWithErros, duration);
+            this.saveWithErrors(id, response, isWithErros, duration);
             return;
         }
 
@@ -30,7 +30,7 @@ export class RecordsServices {
         console.log('\nTempo de Resposta (ms):', duration);
         //console.log('\nJSONB:', responseData);
 
-        repository.saveRecords(1, response.status, "Sucesso!", duration, responseData, false);
+        repository.saveRecords(id, response.status, "Sucesso!", duration, responseData, false);
         return;
     };
 
@@ -40,14 +40,14 @@ export class RecordsServices {
         }
     }
 
-    private saveWithErrors(response: any, isWithErros: boolean, duration: number): void {
+    private saveWithErrors(id: number, response: any, isWithErros: boolean, duration: number): void {
         console.log('\nStatus Code:', response.status);
         console.log('\nData:', response.response.headers.date);
         console.log('\nMensagem:', response.message);
         console.log('\nTempo de Resposta (ms):', duration);
         //console.log('\nJSONB:', response.response.data);
         
-        repository.saveRecords(1, response.status, response.message, duration, response.response.data, true);
+        repository.saveRecords(id, response.status, response.message, duration, response.response.data, true);
     }
 
     public callFunction() {
