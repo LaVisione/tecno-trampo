@@ -1,0 +1,29 @@
+.listar_erro{
+    margin: auto;
+    padding: 1rem;
+}
+
+.item_lista{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ponto_vermelho{
+    border: 1px solid black;
+    width: 30px;
+    height: 5px;
+    background-color: red;
+}
+
+.data-hora p{
+    font-size:x-large ;
+    font-weight:bolder;
+    text-align:start;
+}
+
+.data-hora{
+    width: 200px;
+}
