@@ -1,0 +1,43 @@
+.card{
+    background-color: #18A3E0;
+    box-shadow: 5px 10px 5px rgba(159, 159, 159, 0.568);
+
+    height: 8rem;
+    width: 12rem;
+
+    padding: 5px;
+    text-align: center;
+    align-items: center;
+
+    margin: 25px;
+}
+
+.informacao{
+    text-align: center;
+    align-items: center;    
+    font-size: larger;
+}
+
+.versao{
+    margin-top: -15px;
+    color: #eeee;
+}
+
+.lado-lado{
+    display: flex;
+    justify-content:space-around;
+}
+
+.btn_Detalhe{
+    background-color: #0F1827;
+    height: 2rem;
+    width: 12rem;
+    color: #ffff;
+    font-size:x-large;
+}
+
+
+.btn_Detalhe a{
+    text-decoration: none;
+    color: white;
+}

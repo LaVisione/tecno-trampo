@@ -1,0 +1,9 @@
+.Lado-lado{
+    display: flex;
+    justify-content:space-between;
+}
+
+.tela1{
+    padding-left: 6%;
+    padding-right: 6%;
+}
