@@ -39,7 +39,10 @@ sequelize
         console.error('Erro durante o processo:', err);
     });
 
-
+    const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
 
 //teste via postman:
 app.post('/api/v1/boletos/lote/:id_banco', async (req: Request, res: Response) => {
@@ -89,7 +92,8 @@ app.post('/api/v1/boletos/lote/:id_banco', async (req: Request, res: Response) =
 
 });
 
-//------------------------------
+
+//Get registros
 
 app.get('/api/v1/boletos/lote/:id_banco', async (req: Request, res: Response) => {
     const { id_banco } = req.params;
@@ -106,6 +110,8 @@ app.get('/api/v1/boletos/lote/:id_banco', async (req: Request, res: Response) =>
     }
 
 });
+
+//Get últimos erros
 
 app.get('/api/v1/boletos/lote/:id_banco/error', async (req: Request, res: Response) => {
     const { id_banco } = req.params;
@@ -162,6 +168,6 @@ const callRecords = async () => {
 
 setInterval(callRecords, interval);
 
-cron.schedule('00 20 * * *', () => {
+cron.schedule('00 21 * * *', () => {
     recordsServices.callFunction();
 });
