@@ -6,6 +6,7 @@
     width: 100%;
     align-items: center;
     display: flex;
+    z-index: 1000;
 }
 
 .logo{

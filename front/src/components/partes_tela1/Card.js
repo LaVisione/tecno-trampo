@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import './Card.css';
 import PropTypes from 'prop-types'
 
-function Card({ NomeBanco, Versao }) {
+function Card({ NomeBanco, Versao, bancoId }) {
 
     return (
       <div className='card'>
@@ -16,7 +16,7 @@ function Card({ NomeBanco, Versao }) {
           </div>
         </div>
         <button className='btn_Detalhe' > 
-            <Link to="/Grafico" >Detalhes</Link>
+          <Link to={`/Grafico?bancoId=${bancoId}`}>Detalhes</Link>
         </button> 
       </div>
     );
@@ -25,6 +25,7 @@ function Card({ NomeBanco, Versao }) {
 Card.propTypes = {
   NomeBanco : PropTypes.string.isRequired,
   Versao : PropTypes.string,
+  bancoId: PropTypes.number.isRequired,
 }
 
 Card.defaultProps = {

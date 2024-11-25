@@ -23,10 +23,6 @@ essas APIs bancárias, então além de beneficiar a Tecnospeed e seus clientes, 
 comunidade de desenvolvedores que precisam emitir boletos também serão beneficiadas
 por essa ferramenta.
 
-
-
-
-
 2. Tecnologias a serem utilizadas
 
 - Backend: NodeJS ou Typescript

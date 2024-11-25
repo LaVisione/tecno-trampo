@@ -92,7 +92,6 @@ app.post('/api/v1/boletos/lote/:id_banco', async (req: Request, res: Response) =
 
 });
 
-
 //Get registros
 
 app.get('/api/v1/boletos/lote/:id_banco', async (req: Request, res: Response) => {
